@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Interactive Website</title>
+    <title>My Learning Hub</title>
     <style>
         * {
             margin: 0;
@@ -16,10 +16,11 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
@@ -41,32 +42,164 @@
             opacity: 0.9;
         }
 
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .nav-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: #667eea;
+            color: white;
+        }
+
+        .nav-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
         .card {
             background: white;
             border-radius: 15px;
             padding: 30px;
             margin: 20px 0;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             animation: slideUp 0.6s ease-out;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
         }
 
         .card h2 {
             color: #667eea;
             margin-bottom: 15px;
             font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
         }
 
-        .button-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        .card h3 {
+            color: #764ba2;
             margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .info-box {
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .info-box.tip {
+            background: #fff4e6;
+            border-left-color: #ff9800;
+        }
+
+        .info-box.fact {
+            background: #e8f5e9;
+            border-left-color: #4caf50;
+        }
+
+        .list-styled {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .list-styled li {
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .quiz-container {
+            margin-top: 20px;
+        }
+
+        .question {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question p {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .answer-option {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #e0e0e0;
+        }
+
+        .answer-option:hover {
+            background: #f0f0f0;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .answer-option.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #45a049;
+        }
+
+        .answer-option.wrong {
+            background: #f44336;
+            color: white;
+            border-color: #da190b;
+        }
+
+        .calculator {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .calc-input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
         }
 
         .btn {
@@ -79,6 +212,7 @@
             font-size: 1em;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin: 5px;
         }
 
         .btn:hover {
@@ -86,82 +220,14 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
-        .btn:active {
-            transform: scale(0.95);
-        }
-
-        .counter {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .counter-display {
-            font-size: 2em;
-            font-weight: bold;
-            color: #667eea;
-            min-width: 60px;
-            text-align: center;
-        }
-
-        .color-box {
-            width: 100%;
-            height: 150px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-radius: 10px;
-            margin-top: 15px;
-            transition: all 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .color-box:hover {
-            transform: rotate(2deg) scale(1.02);
-        }
-
-        .quiz-section {
-            margin-top: 20px;
-        }
-
-        .quiz-option {
-            background: #f0f0f0;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .quiz-option:hover {
-            background: #e0e0e0;
-            transform: translateX(5px);
-        }
-
-        .quiz-option.correct {
-            background: #4caf50;
-            color: white;
-            border-color: #45a049;
-        }
-
-        .quiz-option.wrong {
-            background: #f44336;
-            color: white;
-            border-color: #da190b;
-        }
-
-        .message-box {
-            background: #fffbea;
-            border-left: 4px solid #f0b429;
+        .result-box {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
             padding: 15px;
             margin-top: 15px;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #2e7d32;
             display: none;
         }
 
@@ -181,165 +247,439 @@
             }
         }
 
-        .emoji-rain {
-            position: fixed;
-            font-size: 2em;
-            pointer-events: none;
-            animation: fall 3s linear;
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
         }
 
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
+        .grid-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .grid-item h4 {
+            color: #667eea;
+            margin-bottom: 8px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚀 Welcome to My Interactive Website!</h1>
-            <p>Click, explore, and have fun!</p>
+            <h1>📚 My Learning Hub</h1>
+            <p>Explore, Learn, and Discover Amazing Things!</p>
         </div>
 
-        <div class="card">
-            <h2>🎮 Fun Counter Game</h2>
-            <p>Click the buttons to increase or decrease the counter!</p>
-            <div class="counter">
-                <button class="btn" onclick="decreaseCounter()">➖ Decrease</button>
-                <div class="counter-display" id="counter">0</div>
-                <button class="btn" onclick="increaseCounter()">➕ Increase</button>
-                <button class="btn" onclick="resetCounter()">🔄 Reset</button>
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showSection('science')">🔬 Science</button>
+            <button class="nav-btn" onclick="showSection('math')">➗ Math</button>
+            <button class="nav-btn" onclick="showSection('space')">🚀 Space</button>
+            <button class="nav-btn" onclick="showSection('tech')">💻 Technology</button>
+            <button class="nav-btn" onclick="showSection('history')">🏛️ History</button>
+        </div>
+
+        <!-- Science Section -->
+        <div id="science" class="section active">
+            <div class="card">
+                <h2>🔬 Amazing Science Facts</h2>
+                
+                <h3>The Human Body</h3>
+                <p>Your body is an incredible machine! Here are some fascinating facts:</p>
+                <ul class="list-styled">
+                    <li>Your brain contains about 86 billion neurons (nerve cells)</li>
+                    <li>Your heart beats about 100,000 times per day</li>
+                    <li>You have about 37 trillion cells in your body</li>
+                    <li>Your bones are stronger than steel, but much lighter</li>
+                    <li>You blink about 15-20 times per minute</li>
+                </ul>
+
+                <div class="info-box fact">
+                    <strong>Did you know?</strong> Your body replaces all of its cells every 7-10 years. That means you're literally a different person than you were a decade ago!
+                </div>
+
+                <h3>Water Cycle</h3>
+                <p>Water on Earth constantly moves through a cycle:</p>
+                <ul class="list-styled">
+                    <li><strong>Evaporation:</strong> Water from oceans, lakes, and rivers turns into vapor</li>
+                    <li><strong>Condensation:</strong> Water vapor cools and forms clouds</li>
+                    <li><strong>Precipitation:</strong> Water falls as rain, snow, or hail</li>
+                    <li><strong>Collection:</strong> Water collects in bodies of water and the cycle starts again</li>
+                </ul>
+
+                <h3>States of Matter</h3>
+                <div class="grid-2">
+                    <div class="grid-item">
+                        <h4>Solid</h4>
+                        <p>Particles are tightly packed together. Example: ice, rocks, wood</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Liquid</h4>
+                        <p>Particles flow freely. Example: water, juice, oil</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Gas</h4>
+                        <p>Particles spread out to fill space. Example: air, steam, oxygen</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Plasma</h4>
+                        <p>Super hot ionized gas. Example: lightning, stars, neon signs</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🧪 Science Quiz</h2>
+                <div class="quiz-container">
+                    <div class="question">
+                        <p>1. What is the closest planet to the Sun?</p>
+                        <div class="answer-option" onclick="checkAnswer(this, false)">Venus</div>
+                        <div class="answer-option" onclick="checkAnswer(this, true)">Mercury</div>
+                        <div class="answer-option" onclick="checkAnswer(this, false)">Mars</div>
+                    </div>
+
+                    <div class="question">
+                        <p>2. What do plants need to make food?</p>
+                        <div class="answer-option" onclick="checkAnswer(this, false)">Water, soil, and air</div>
+                        <div class="answer-option" onclick="checkAnswer(this, true)">Sunlight, water, and carbon dioxide</div>
+                        <div class="answer-option" onclick="checkAnswer(this, false)">Oxygen, nitrogen, and soil</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="card">
-            <h2>🎨 Magic Color Changer</h2>
-            <p>Click the box below to change its color randomly!</p>
-            <div class="color-box" id="colorBox" onclick="changeColor()">
-                Click Me!
+        <!-- Math Section -->
+        <div id="math" class="section">
+            <div class="card">
+                <h2>➗ Math Made Easy</h2>
+                
+                <h3>Multiplication Tips</h3>
+                <div class="info-box tip">
+                    <strong>Quick Tip:</strong> To multiply by 9, use your fingers! Hold up 10 fingers, fold down the finger number you're multiplying (e.g., for 9×3, fold down the 3rd finger). The fingers before the folded one are tens, and after are ones!
+                </div>
+
+                <h3>Common Multiplication Facts</h3>
+                <div class="grid-2">
+                    <div class="grid-item">
+                        <h4>Times 2 (Doubles)</h4>
+                        <p>2×5 = 10<br>2×8 = 16<br>2×12 = 24</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Times 5</h4>
+                        <p>5×4 = 20<br>5×6 = 30<br>5×9 = 45</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Times 10</h4>
+                        <p>10×3 = 30<br>10×7 = 70<br>10×11 = 110</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Times 11 (Easy!)</h4>
+                        <p>11×2 = 22<br>11×5 = 55<br>11×9 = 99</p>
+                    </div>
+                </div>
+
+                <h3>Fractions Basics</h3>
+                <p>A fraction has two parts:</p>
+                <ul class="list-styled">
+                    <li><strong>Numerator:</strong> The top number (how many parts you have)</li>
+                    <li><strong>Denominator:</strong> The bottom number (total number of parts)</li>
+                </ul>
+                <p>Example: In 3/4, you have 3 parts out of 4 total parts.</p>
+
+                <div class="info-box">
+                    <strong>Remember:</strong> When adding or subtracting fractions, you need the same denominator (bottom number)!
+                </div>
+
+                <h3>Interactive Calculator</h3>
+                <div class="calculator">
+                    <p><strong>Addition Calculator</strong></p>
+                    <input type="number" id="num1" class="calc-input" placeholder="Enter first number">
+                    <input type="number" id="num2" class="calc-input" placeholder="Enter second number">
+                    <button class="btn" onclick="calculate('add')">Add ➕</button>
+                    <button class="btn" onclick="calculate('subtract')">Subtract ➖</button>
+                    <button class="btn" onclick="calculate('multiply')">Multiply ✖️</button>
+                    <button class="btn" onclick="calculate('divide')">Divide ➗</button>
+                    <div id="calcResult" class="result-box"></div>
+                </div>
             </div>
-            <div class="button-group">
-                <button class="btn" onclick="makeItRain()">🎉 Celebrate!</button>
+
+            <div class="card">
+                <h2>🧮 Math Quiz</h2>
+                <div class="quiz-container">
+                    <div class="question">
+                        <p>1. What is 7 × 8?</p>
+                        <div class="answer-option" onclick="checkAnswer(this, false)">54</div>
+                        <div class="answer-option" onclick="checkAnswer(this, true)">56</div>
+                        <div class="answer-option" onclick="checkAnswer(this, false)">48</div>
+                    </div>
+
+                    <div class="question">
+                        <p>2. What is 1/2 + 1/4?</p>
+                        <div class="answer-option" onclick="checkAnswer(this, false)">2/6</div>
+                        <div class="answer-option" onclick="checkAnswer(this, true)">3/4</div>
+                        <div class="answer-option" onclick="checkAnswer(this, false)">1/3</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="card">
-            <h2>🧠 Quick Quiz</h2>
-            <p><strong>Question:</strong> What is 5 + 7?</p>
-            <div class="quiz-section">
-                <div class="quiz-option" onclick="checkAnswer(this, false)">10</div>
-                <div class="quiz-option" onclick="checkAnswer(this, true)">12</div>
-                <div class="quiz-option" onclick="checkAnswer(this, false)">15</div>
-                <div class="quiz-option" onclick="checkAnswer(this, false)">13</div>
+        <!-- Space Section -->
+        <div id="space" class="section">
+            <div class="card">
+                <h2>🚀 Space Exploration</h2>
+                
+                <h3>The Solar System</h3>
+                <p>Our solar system has 8 planets that orbit around the Sun. Here they are in order from closest to farthest:</p>
+                <ul class="list-styled">
+                    <li><strong>Mercury:</strong> Smallest planet, very hot during the day</li>
+                    <li><strong>Venus:</strong> Hottest planet due to its thick atmosphere</li>
+                    <li><strong>Earth:</strong> Our home! The only planet with life we know of</li>
+                    <li><strong>Mars:</strong> The "Red Planet" with the largest volcano in the solar system</li>
+                    <li><strong>Jupiter:</strong> Largest planet, with a giant storm called the Great Red Spot</li>
+                    <li><strong>Saturn:</strong> Famous for its beautiful rings made of ice and rock</li>
+                    <li><strong>Uranus:</strong> Tilted on its side, appears blue-green</li>
+                    <li><strong>Neptune:</strong> Farthest planet, has the strongest winds</li>
+                </ul>
+
+                <div class="info-box fact">
+                    <strong>Amazing Fact:</strong> Light from the Sun takes 8 minutes and 20 seconds to reach Earth!
+                </div>
+
+                <h3>The Moon</h3>
+                <p>Earth's Moon is our closest neighbor in space:</p>
+                <ul class="list-styled">
+                    <li>It takes 27.3 days to orbit Earth</li>
+                    <li>The same side always faces Earth</li>
+                    <li>Neil Armstrong was the first person to walk on the Moon in 1969</li>
+                    <li>The Moon causes ocean tides on Earth</li>
+                    <li>It has no atmosphere, so there's no weather</li>
+                </ul>
+
+                <h3>Space Records</h3>
+                <div class="grid-2">
+                    <div class="grid-item">
+                        <h4>Biggest Star Known</h4>
+                        <p>UY Scuti - about 1,700 times larger than our Sun!</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Fastest Spacecraft</h4>
+                        <p>Parker Solar Probe - 430,000 mph!</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Coldest Place</h4>
+                        <p>Boomerang Nebula - minus 272°C</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Largest Planet</h4>
+                        <p>Jupiter - 1,300 Earths could fit inside!</p>
+                    </div>
+                </div>
             </div>
-            <div class="message-box" id="quizMessage"></div>
         </div>
 
-        <div class="card">
-            <h2>💬 Leave a Message</h2>
-            <p>Type something and click the button!</p>
-            <input type="text" id="messageInput" placeholder="Enter your message..." style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em; margin-top: 10px;">
-            <div class="button-group">
-                <button class="btn" onclick="showMessage()">📢 Show Message</button>
-                <button class="btn" onclick="clearMessage()">🗑️ Clear</button>
+        <!-- Technology Section -->
+        <div id="tech" class="section">
+            <div class="card">
+                <h2>💻 Technology & Coding</h2>
+                
+                <h3>What is Programming?</h3>
+                <p>Programming is like giving instructions to a computer. Just like you follow a recipe to bake a cake, computers follow code to do tasks!</p>
+
+                <h3>Popular Programming Languages</h3>
+                <div class="grid-2">
+                    <div class="grid-item">
+                        <h4>Python</h4>
+                        <p>Great for beginners! Used for websites, games, and AI.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>JavaScript</h4>
+                        <p>Makes websites interactive (like this one!)</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Scratch</h4>
+                        <p>Perfect for kids! Drag and drop blocks to code.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>HTML/CSS</h4>
+                        <p>Creates the structure and style of websites.</p>
+                    </div>
+                </div>
+
+                <h3>How Computers Work</h3>
+                <ul class="list-styled">
+                    <li><strong>Input:</strong> You give information (keyboard, mouse)</li>
+                    <li><strong>Processing:</strong> The CPU (brain) processes the data</li>
+                    <li><strong>Storage:</strong> Information is saved (hard drive, memory)</li>
+                    <li><strong>Output:</strong> Results are shown (screen, speakers)</li>
+                </ul>
+
+                <div class="info-box tip">
+                    <strong>Want to start coding?</strong> Try websites like Scratch.mit.edu or Code.org - they're free and perfect for beginners!
+                </div>
+
+                <h3>Internet Safety Tips</h3>
+                <ul class="list-styled">
+                    <li>Never share personal information online (address, phone number)</li>
+                    <li>Use strong passwords with letters, numbers, and symbols</li>
+                    <li>Always tell a trusted adult if something online makes you uncomfortable</li>
+                    <li>Think before you post - things online can last forever</li>
+                    <li>Be kind online, just like you are in person</li>
+                </ul>
             </div>
-            <div class="message-box" id="displayMessage" style="display: none; margin-top: 15px;"></div>
+        </div>
+
+        <!-- History Section -->
+        <div id="history" class="section">
+            <div class="card">
+                <h2>🏛️ History & World Facts</h2>
+                
+                <h3>Ancient Civilizations</h3>
+                <div class="grid-2">
+                    <div class="grid-item">
+                        <h4>Ancient Egypt</h4>
+                        <p>Built pyramids, invented paper from papyrus, lasted over 3,000 years!</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Ancient Greece</h4>
+                        <p>Invented democracy, Olympics, and made advances in math and science.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Ancient Rome</h4>
+                        <p>Built roads and aqueducts, created a vast empire, Latin language.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Ancient China</h4>
+                        <p>Invented paper, gunpowder, compass, and the printing press.</p>
+                    </div>
+                </div>
+
+                <h3>Important Inventions</h3>
+                <ul class="list-styled">
+                    <li><strong>Wheel (3500 BC):</strong> Changed transportation forever</li>
+                    <li><strong>Printing Press (1440):</strong> Made books available to everyone</li>
+                    <li><strong>Light Bulb (1879):</strong> Thomas Edison brought light to homes</li>
+                    <li><strong>Telephone (1876):</strong> Alexander Graham Bell connected the world</li>
+                    <li><strong>Internet (1960s-1990s):</strong> Connected computers globally</li>
+                    <li><strong>Smartphone (2007):</strong> A computer in your pocket!</li>
+                </ul>
+
+                <div class="info-box fact">
+                    <strong>Did you know?</strong> The Great Wall of China is over 13,000 miles long and took over 2,000 years to build!
+                </div>
+
+                <h3>Seven Continents</h3>
+                <ul class="list-styled">
+                    <li><strong>Asia:</strong> Largest continent, 4.6 billion people</li>
+                    <li><strong>Africa:</strong> Second largest, birthplace of humanity</li>
+                    <li><strong>North America:</strong> Includes Canada, USA, and Mexico</li>
+                    <li><strong>South America:</strong> Home to Amazon rainforest</li>
+                    <li><strong>Europe:</strong> Many different countries and cultures</li>
+                    <li><strong>Australia:</strong> Smallest continent, unique wildlife</li>
+                    <li><strong>Antarctica:</strong> Coldest, covered in ice, no permanent residents</li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <script>
-        let counter = 0;
-
-        function increaseCounter() {
-            counter++;
-            document.getElementById('counter').textContent = counter;
-        }
-
-        function decreaseCounter() {
-            counter--;
-            document.getElementById('counter').textContent = counter;
-        }
-
-        function resetCounter() {
-            counter = 0;
-            document.getElementById('counter').textContent = counter;
-        }
-
-        function changeColor() {
-            const colors = [
-                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-                'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
-                'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-            ];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            document.getElementById('colorBox').style.background = randomColor;
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
         function checkAnswer(element, isCorrect) {
-            const options = document.querySelectorAll('.quiz-option');
+            const question = element.parentElement;
+            const options = question.querySelectorAll('.answer-option');
+            
+            // Disable all options in this question
             options.forEach(opt => {
                 opt.style.pointerEvents = 'none';
             });
-
-            const messageBox = document.getElementById('quizMessage');
             
             if (isCorrect) {
                 element.classList.add('correct');
-                messageBox.textContent = '🎉 Correct! Great job!';
-                messageBox.style.background = '#d4edda';
-                messageBox.style.borderColor = '#4caf50';
+                element.innerHTML += ' ✓ Correct!';
             } else {
                 element.classList.add('wrong');
-                messageBox.textContent = '❌ Oops! Try again next time!';
-                messageBox.style.background = '#f8d7da';
-                messageBox.style.borderColor = '#f44336';
-            }
-            
-            messageBox.style.display = 'block';
-            
-            setTimeout(() => {
+                element.innerHTML += ' ✗ Try again!';
+                // Show the correct answer
                 options.forEach(opt => {
-                    opt.classList.remove('correct', 'wrong');
-                    opt.style.pointerEvents = 'auto';
+                    if (opt !== element && !opt.classList.contains('wrong')) {
+                        setTimeout(() => {
+                            opt.style.background = '#e8f5e9';
+                            opt.style.borderColor = '#4caf50';
+                        }, 500);
+                    }
                 });
-                messageBox.style.display = 'none';
-            }, 3000);
+            }
         }
 
-        function showMessage() {
-            const input = document.getElementById('messageInput');
-            const displayBox = document.getElementById('displayMessage');
+        function calculate(operation) {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const resultBox = document.getElementById('calcResult');
             
-            if (input.value.trim() !== '') {
-                displayBox.textContent = '💬 You said: "' + input.value + '"';
-                displayBox.style.display = 'block';
+            if (isNaN(num1) || isNaN(num2)) {
+                resultBox.style.display = 'block';
+                resultBox.style.background = '#ffebee';
+                resultBox.style.borderColor = '#f44336';
+                resultBox.style.color = '#c62828';
+                resultBox.textContent = 'Please enter both numbers!';
+                return;
             }
-        }
-
-        function clearMessage() {
-            document.getElementById('messageInput').value = '';
-            document.getElementById('displayMessage').style.display = 'none';
-        }
-
-        function makeItRain() {
-            const emojis = ['🎉', '⭐', '✨', '🎊', '🌟', '💫'];
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    const emoji = document.createElement('div');
-                    emoji.className = 'emoji-rain';
-                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                    emoji.style.left = Math.random() * 100 + '%';
-                    emoji.style.top = '-50px';
-                    document.body.appendChild(emoji);
-                    
-                    setTimeout(() => emoji.remove(), 3000);
-                }, i * 100);
+            
+            let result;
+            let symbol;
+            
+            switch(operation) {
+                case 'add':
+                    result = num1 + num2;
+                    symbol = '+';
+                    break;
+                case 'subtract':
+                    result = num1 - num2;
+                    symbol = '-';
+                    break;
+                case 'multiply':
+                    result = num1 * num2;
+                    symbol = '×';
+                    break;
+                case 'divide':
+                    if (num2 === 0) {
+                        resultBox.style.display = 'block';
+                        resultBox.style.background = '#ffebee';
+                        resultBox.style.borderColor = '#f44336';
+                        resultBox.style.color = '#c62828';
+                        resultBox.textContent = 'Cannot divide by zero!';
+                        return;
+                    }
+                    result = num1 / num2;
+                    symbol = '÷';
+                    break;
             }
+            
+            resultBox.style.display = 'block';
+            resultBox.style.background = '#e8f5e9';
+            resultBox.style.borderColor = '#4caf50';
+            resultBox.style.color = '#2e7d32';
+            resultBox.textContent = `${num1} ${symbol} ${num2} = ${result}`;
         }
     </script>
 </body>
