@@ -1,43 +1,346 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My First Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Interactive Website</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 50px auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             padding: 20px;
-            background-color: #f0f0f0;
         }
-        h1 {
-            color: #333;
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
         }
-        .content {
-            background-color: white;
-            padding: 20px;
+
+        .header {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .counter {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .counter-display {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .color-box {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-top: 15px;
+            transition: all 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .color-box:hover {
+            transform: rotate(2deg) scale(1.02);
+        }
+
+        .quiz-section {
+            margin-top: 20px;
+        }
+
+        .quiz-option {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .quiz-option:hover {
+            background: #e0e0e0;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #45a049;
+        }
+
+        .quiz-option.wrong {
+            background: #f44336;
+            color: white;
+            border-color: #da190b;
+        }
+
+        .message-box {
+            background: #fffbea;
+            border-left: 4px solid #f0b429;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .emoji-rain {
+            position: fixed;
+            font-size: 2em;
+            pointer-events: none;
+            animation: fall 3s linear;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="content">
-        <h1>Welcome to My Website!</h1>
-        <p>Hello! My name is [Your Name] and this is my first website.</p>
-        
-        <h2>About Me</h2>
-        <p>I'm a Year 6 student who loves learning about technology.</p>
-        
-        <h2>My Interests</h2>
-        <ul>
-            <li>Programming</li>
-            <li>Building websites</li>
-            <li>Learning new things</li>
-        </ul>
-        
-        <h2>Contact</h2>
-        <p>Thanks for visiting my website!</p>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Welcome to My Interactive Website!</h1>
+            <p>Click, explore, and have fun!</p>
+        </div>
+
+        <div class="card">
+            <h2>🎮 Fun Counter Game</h2>
+            <p>Click the buttons to increase or decrease the counter!</p>
+            <div class="counter">
+                <button class="btn" onclick="decreaseCounter()">➖ Decrease</button>
+                <div class="counter-display" id="counter">0</div>
+                <button class="btn" onclick="increaseCounter()">➕ Increase</button>
+                <button class="btn" onclick="resetCounter()">🔄 Reset</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🎨 Magic Color Changer</h2>
+            <p>Click the box below to change its color randomly!</p>
+            <div class="color-box" id="colorBox" onclick="changeColor()">
+                Click Me!
+            </div>
+            <div class="button-group">
+                <button class="btn" onclick="makeItRain()">🎉 Celebrate!</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🧠 Quick Quiz</h2>
+            <p><strong>Question:</strong> What is 5 + 7?</p>
+            <div class="quiz-section">
+                <div class="quiz-option" onclick="checkAnswer(this, false)">10</div>
+                <div class="quiz-option" onclick="checkAnswer(this, true)">12</div>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">15</div>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">13</div>
+            </div>
+            <div class="message-box" id="quizMessage"></div>
+        </div>
+
+        <div class="card">
+            <h2>💬 Leave a Message</h2>
+            <p>Type something and click the button!</p>
+            <input type="text" id="messageInput" placeholder="Enter your message..." style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em; margin-top: 10px;">
+            <div class="button-group">
+                <button class="btn" onclick="showMessage()">📢 Show Message</button>
+                <button class="btn" onclick="clearMessage()">🗑️ Clear</button>
+            </div>
+            <div class="message-box" id="displayMessage" style="display: none; margin-top: 15px;"></div>
+        </div>
     </div>
+
+    <script>
+        let counter = 0;
+
+        function increaseCounter() {
+            counter++;
+            document.getElementById('counter').textContent = counter;
+        }
+
+        function decreaseCounter() {
+            counter--;
+            document.getElementById('counter').textContent = counter;
+        }
+
+        function resetCounter() {
+            counter = 0;
+            document.getElementById('counter').textContent = counter;
+        }
+
+        function changeColor() {
+            const colors = [
+                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+                'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+            ];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.getElementById('colorBox').style.background = randomColor;
+        }
+
+        function checkAnswer(element, isCorrect) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+
+            const messageBox = document.getElementById('quizMessage');
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                messageBox.textContent = '🎉 Correct! Great job!';
+                messageBox.style.background = '#d4edda';
+                messageBox.style.borderColor = '#4caf50';
+            } else {
+                element.classList.add('wrong');
+                messageBox.textContent = '❌ Oops! Try again next time!';
+                messageBox.style.background = '#f8d7da';
+                messageBox.style.borderColor = '#f44336';
+            }
+            
+            messageBox.style.display = 'block';
+            
+            setTimeout(() => {
+                options.forEach(opt => {
+                    opt.classList.remove('correct', 'wrong');
+                    opt.style.pointerEvents = 'auto';
+                });
+                messageBox.style.display = 'none';
+            }, 3000);
+        }
+
+        function showMessage() {
+            const input = document.getElementById('messageInput');
+            const displayBox = document.getElementById('displayMessage');
+            
+            if (input.value.trim() !== '') {
+                displayBox.textContent = '💬 You said: "' + input.value + '"';
+                displayBox.style.display = 'block';
+            }
+        }
+
+        function clearMessage() {
+            document.getElementById('messageInput').value = '';
+            document.getElementById('displayMessage').style.display = 'none';
+        }
+
+        function makeItRain() {
+            const emojis = ['🎉', '⭐', '✨', '🎊', '🌟', '💫'];
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'emoji-rain';
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = Math.random() * 100 + '%';
+                    emoji.style.top = '-50px';
+                    document.body.appendChild(emoji);
+                    
+                    setTimeout(() => emoji.remove(), 3000);
+                }, i * 100);
+            }
+        }
+    </script>
 </body>
 </html>
